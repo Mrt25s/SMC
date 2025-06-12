@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám Phá Smart Money Concept (SMC) với Trợ lý AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .concept-card.active {
+            border-color: #14b8a6; /* teal-500 */
+            background-color: #f0fdfa; /* teal-50 */
+        }
+        .concept-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .concept-card.active .concept-content {
+            max-height: 500px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .quiz-checkbox:checked + label {
+            background-color: #ccfbf1; /* teal-100 */
+            border-color: #14b8a6; /* teal-500 */
+        }
+        .nav-link.active {
+            color: #14b8a6;
+            font-weight: 600;
+        }
+        .prose h3 { @apply text-lg font-semibold mb-2 text-slate-800; }
+        .prose ul { @apply list-disc list-inside mb-4; }
+        .prose li { @apply mb-1; }
+        .prose p { @apply mb-4; }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #14b8a6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <a href="#hero" class="text-xl font-bold text-slate-800">
+                    SMC<span class="text-teal-500">.Explorer</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#concepts" class="nav-link text-slate-600 hover:text-teal-500 transition-colors">Khái Niệm</a>
+                    <a href="#process" class="nav-link text-slate-600 hover:text-teal-500 transition-colors">Quy Trình</a>
+                    <a href="#analyzer" class="nav-link text-slate-600 hover:text-teal-500 transition-colors">✨ Trợ lý AI</a>
+                    <a href="#evaluation" class="nav-link text-slate-600 hover:text-teal-500 transition-colors">Đánh Giá</a>
+                    <a href="#quiz" class="nav-link text-slate-600 hover:text-teal-500 transition-colors">Tự Đánh Giá</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-slate-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </nav>
+            <div id="mobile-menu" class="hidden md:hidden flex-col space-y-2 pb-4">
+                <a href="#concepts" class="block py-2 px-4 text-slate-600 hover:bg-teal-50 rounded-lg">Khái Niệm</a>
+                <a href="#process" class="block py-2 px-4 text-slate-600 hover:bg-teal-50 rounded-lg">Quy Trình</a>
+                 <a href="#analyzer" class="block py-2 px-4 text-slate-600 hover:bg-teal-50 rounded-lg">✨ Trợ lý AI</a>
+                <a href="#evaluation" class="block py-2 px-4 text-slate-600 hover:bg-teal-50 rounded-lg">Đánh Giá</a>
+                <a href="#quiz" class="block py-2 px-4 text-slate-600 hover:bg-teal-50 rounded-lg">Tự Đánh Giá</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-16">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4">
+                Giải mã
+                <span class="text-teal-500">Smart Money Concept</span>
+            </h1>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600 mb-8">
+                Một phương pháp tiếp cận thị trường sâu sắc, tập trung vào việc phân tích "dấu chân" của các tổ chức lớn để tìm kiếm lợi thế giao dịch. Hãy cùng khám phá logic đằng sau các chuyển động của thị trường.
+            </p>
+            <a href="#concepts" class="bg-teal-500 text-white font-bold py-3 px-8 rounded-full hover:bg-teal-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Bắt đầu khám phá
+            </a>
+        </section>
+
+        <!-- Core Concepts Section -->
+        <section id="concepts" class="py-12 md:py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Nền Tảng Cốt Lõi của SMC</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Đây là những thuật ngữ và khái niệm quan trọng tạo nên ngôn ngữ của SMC. Nhấp vào từng mục để tìm hiểu chi tiết.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div id="concept-card-ob" class="concept-card bg-white p-6 rounded-lg shadow-md border-2 border-transparent cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-slate-800">Order Block (OB) - Khối Lệnh</h3>
+                        <span class="text-teal-500 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="concept-content mt-4 text-slate-600">
+                        <p>Định nghĩa và ý nghĩa của Order Block...</p>
+                    </div>
+                </div>
+                <div id="concept-card-lq" class="concept-card bg-white p-6 rounded-lg shadow-md border-2 border-transparent cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-slate-800">Liquidity (LQ) - Thanh Khoản</h3>
+                        <span class="text-teal-500 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="concept-content mt-4 text-slate-600">
+                        <p>Định nghĩa và ý nghĩa của Liquidity...</p>
+                    </div>
+                </div>
+                <div id="concept-card-fvg" class="concept-card bg-white p-6 rounded-lg shadow-md border-2 border-transparent cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-slate-800">Fair Value Gap (FVG) - Khoảng Trống</h3>
+                        <span class="text-teal-500 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="concept-content mt-4 text-slate-600">
+                        <p>Định nghĩa và ý nghĩa của FVG...</p>
+                    </div>
+                </div>
+                <div id="concept-card-structure" class="concept-card bg-white p-6 rounded-lg shadow-md border-2 border-transparent cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-slate-800">BOS & CHoCH - Cấu trúc Thị trường</h3>
+                        <span class="text-teal-500 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="concept-content mt-4 text-slate-600">
+                        <p>Định nghĩa và ý nghĩa của BOS & CHoCH...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SMC Process Section -->
+        <section id="process" class="py-12 md:py-20 bg-white rounded-2xl shadow-lg">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Quy Trình Giao Dịch Theo SMC</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Áp dụng SMC không phải là ngẫu nhiên. Nó tuân theo một quy trình phân tích logic từ tổng quan đến chi tiết.</p>
+            </div>
+            <div class="relative max-w-5xl mx-auto">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2"></div>
+                <div class="grid md:grid-cols-5 gap-8">
+                    <div class="text-center relative"><div class="flex items-center justify-center w-16 h-16 mx-auto bg-teal-100 text-teal-600 rounded-full text-2xl font-bold shadow-md border-2 border-white">1</div><h3 class="mt-4 font-semibold text-slate-800">Phân Tích Đa Khung Thời Gian</h3><p class="mt-2 text-sm text-slate-500">Bắt đầu từ khung thời gian lớn (D1, H4) để xác định xu hướng chính và các Vùng Quan Tâm (POI) quan trọng.</p></div>
+                    <div class="text-center relative"><div class="flex items-center justify-center w-16 h-16 mx-auto bg-teal-100 text-teal-600 rounded-full text-2xl font-bold shadow-md border-2 border-white">2</div><h3 class="mt-4 font-semibold text-slate-800">Xác định Cấu Trúc & POI</h3><p class="mt-2 text-sm text-slate-500">Vẽ cấu trúc thị trường (BOS, CHoCH) và đánh dấu các POI tiềm năng như Order Blocks, FVG.</p></div>
+                    <div class="text-center relative"><div class="flex items-center justify-center w-16 h-16 mx-auto bg-teal-100 text-teal-600 rounded-full text-2xl font-bold shadow-md border-2 border-white">3</div><h3 class="mt-4 font-semibold text-slate-800">Chờ Giá Hồi Về</h3><p class="mt-2 text-sm text-slate-500">Kiên nhẫn chờ đợi giá điều chỉnh (pullback) về các vùng POI đã xác định. Không đuổi theo giá.</p></div>
+                    <div class="text-center relative"><div class="flex items-center justify-center w-16 h-16 mx-auto bg-teal-100 text-teal-600 rounded-full text-2xl font-bold shadow-md border-2 border-white">4</div><h3 class="mt-4 font-semibold text-slate-800">Tìm Kiếm Tín Hiệu Xác Nhận</h3><p class="mt-2 text-sm text-slate-500">Chuyển xuống khung thời gian nhỏ (M15, M5) để tìm tín hiệu xác nhận như CHoCH nhỏ, quét thanh khoản.</p></div>
+                    <div class="text-center relative"><div class="flex items-center justify-center w-16 h-16 mx-auto bg-teal-100 text-teal-600 rounded-full text-2xl font-bold shadow-md border-2 border-white">5</div><h3 class="mt-4 font-semibold text-slate-800">Thực Thi & Quản Lý Lệnh</h3><p class="mt-2 text-sm text-slate-500">Vào lệnh với điểm dừng lỗ rõ ràng và mục tiêu lợi nhuận dựa trên các vùng thanh khoản hoặc tỷ lệ R:R.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gemini AI Analyzer Section -->
+        <section id="analyzer" class="py-12 md:py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">✨ Trợ lý Phân tích Kịch bản SMC</h2>
+                <p class="mt-4 text-slate-600 max-w-3xl mx-auto">Thực hành là chìa khóa. Hãy mô tả một kịch bản thị trường bạn đang phân vân, và AI sẽ cung cấp một góc nhìn phân tích dựa trên các nguyên tắc của SMC.</p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+                <div class="w-full">
+                    <label for="scenario-input" class="block text-lg font-semibold text-slate-700 mb-2">Mô tả kịch bản thị trường của bạn:</label>
+                    <textarea id="scenario-input" rows="5" class="w-full p-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-teal-400 transition" placeholder="Ví dụ: Cặp EUR/USD trên khung H4 đang trong xu hướng tăng. Giá vừa tạo một đỉnh cao mới (BOS). Bên dưới có một vùng FVG chưa được lấp đầy. Tôi nên tìm kiếm cơ hội mua ở đâu?"></textarea>
+                    <button id="analyze-button" class="mt-4 w-full bg-teal-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-teal-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center space-x-2">
+                        <span>✨ Phân tích với Trợ lý AI</span>
+                    </button>
+                </div>
+                <div id="analyzer-result-container" class="mt-8">
+                    <div id="analyzer-loader" class="hidden justify-center items-center">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="analyzer-output" class="prose max-w-none text-slate-700"></div>
+                     <div id="analyzer-error" class="hidden p-4 text-center text-red-700 bg-red-100 rounded-lg"></div>
+                </div>
+                <p class="text-xs text-slate-400 mt-6 text-center">Lưu ý: Phân tích được tạo bởi AI và chỉ dành cho mục đích học tập, tham khảo. Đây không phải là lời khuyên đầu tư tài chính.</p>
+            </div>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section id="evaluation" class="py-12 md:py-20 bg-white rounded-2xl shadow-lg">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Đánh Giá Toàn Diện</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Mọi phương pháp đều có hai mặt. Hiểu rõ ưu và nhược điểm của SMC là rất quan trọng trước khi quyết định áp dụng.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+                <div><div class="chart-container" style="height:400px; max-height:400px;"><canvas id="evaluationChart"></canvas></div></div>
+                <div class="space-y-4">
+                    <div><h4 class="text-lg font-semibold text-green-600">Ưu điểm nổi bật</h4><ul class="mt-2 list-disc list-inside text-slate-600 space-y-1"><li>Hiểu biết sâu sắc về động lực thị trường.</li><li>Tiềm năng tỷ lệ Rủi ro:Lợi nhuận (R:R) rất cao.</li><li>Giảm sự phụ thuộc vào các chỉ báo kỹ thuật có độ trễ.</li><li>Giúp nhận diện và tránh các bẫy giá phổ biến.</li></ul></div>
+                    <div><h4 class="text-lg font-semibold text-red-600">Nhược điểm cần lưu ý</h4><ul class="mt-2 list-disc list-inside text-slate-600 space-y-1"><li>Tính chủ quan cao trong việc diễn giải tín hiệu.</li><li>Đường cong học tập dốc và phức tạp, tốn thời gian.</li><li>Khó xác định chính xác 100% hành động của Smart Money.</li><li>Nguy cơ phân tích quá mức và thiên kiến xác nhận.</li></ul></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quiz Section -->
+        <section id="quiz" class="py-12 md:py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">SMC Có Phù Hợp Với Bạn?</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Hãy trả lời một vài câu hỏi để xem xét liệu phong cách và tư duy của bạn có phù hợp để bắt đầu hành trình với SMC hay không.</p>
+            </div>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                <div class="space-y-4" id="quiz-questions">
+                    <div class="flex items-start"><input id="q1" type="checkbox" class="quiz-checkbox hidden" value="1"><label for="q1" class="flex items-center cursor-pointer border-2 border-slate-200 p-4 rounded-lg w-full transition-all"><span class="w-6 h-6 mr-4 border-2 border-slate-300 rounded-md flex items-center justify-center"></span><span>Tôi đã có kinh nghiệm với Price Action và muốn tìm hiểu sâu hơn.</span></label></div>
+                    <div class="flex items-start"><input id="q2" type="checkbox" class="quiz-checkbox hidden" value="1"><label for="q2" class="flex items-center cursor-pointer border-2 border-slate-200 p-4 rounded-lg w-full transition-all"><span class="w-6 h-6 mr-4 border-2 border-slate-300 rounded-md flex items-center justify-center"></span><span>Tôi là người kiên nhẫn và có thể chờ đợi thiết lập giao dịch lý tưởng.</span></label></div>
+                    <div class="flex items-start"><input id="q3" type="checkbox" class="quiz-checkbox hidden" value="1"><label for="q3" class="flex items-center cursor-pointer border-2 border-slate-200 p-4 rounded-lg w-full transition-all"><span class="w-6 h-6 mr-4 border-2 border-slate-300 rounded-md flex items-center justify-center"></span><span>Tôi sẵn sàng dành thời gian đáng kể để học hỏi và thực hành (backtest).</span></label></div>
+                    <div class="flex items-start"><input id="q4" type="checkbox" class="quiz-checkbox hidden" value="1"><label for="q4" class="flex items-center cursor-pointer border-2 border-slate-200 p-4 rounded-lg w-full transition-all"><span class="w-6 h-6 mr-4 border-2 border-slate-300 rounded-md flex items-center justify-center"></span><span>Tôi thích phân tích logic "tại sao" hơn là chỉ tìm kiếm các mẫu hình.</span></label></div>
+                </div>
+                <div id="quiz-result" class="mt-8 p-6 rounded-lg text-center transition-opacity duration-500 opacity-0">
+                    <h4 id="result-title" class="text-xl font-bold"></h4>
+                    <p id="result-text" class="mt-2"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="container mx-auto px-4 text-center">
+             <p class="font-bold text-lg text-white mb-2">SMC<span class="text-teal-500">.Explorer</span></p>
+             <p>Ứng dụng này được tạo ra nhằm mục đích giáo dục, dựa trên báo cáo chuyên sâu về Smart Money Concept và được tăng cường bởi AI.</p>
+             <p class="text-sm mt-2">Giao dịch tài chính luôn tiềm ẩn rủi ro. Hãy luôn quản lý vốn một cách cẩn trọng.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const isActive = card.classList.contains('active');
+                    conceptCards.forEach(c => c.classList.remove('active'));
+                    if (!isActive) {
+                        card.classList.add('active');
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.5 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => { observer.observe(section); });
+            
+            // Dummy content for concept cards
+            document.querySelector('#concept-card-ob .concept-content').innerHTML = `<p class="mb-4"><strong>Định nghĩa:</strong> Là vùng giá được xác định bởi cây nến tăng/giảm cuối cùng ngay trước một động thái giá mạnh mẽ, dứt khoát theo hướng ngược lại. Đây được coi là vùng "Smart Money" đã đặt các lệnh lớn.</p><p><strong>Ý nghĩa:</strong> Hoạt động như các vùng hỗ trợ/kháng cự tiềm năng rất mạnh, nơi giá có xu hướng quay lại kiểm tra.</p>`;
+            document.querySelector('#concept-card-lq .concept-content').innerHTML = `<p class="mb-4"><strong>Định nghĩa:</strong> Các khu vực trên biểu đồ nơi tập trung lượng lớn lệnh chờ, đặc biệt là lệnh dừng lỗ (stop-loss) của nhà giao dịch nhỏ lẻ. Thanh khoản là "nhiên liệu" cho các động thái của thị trường.</p><p><strong>Ý nghĩa:</strong> "Smart Money" cần "săn" các vùng thanh khoản này để thực hiện các lệnh khổng lồ của họ.</p>`;
+            document.querySelector('#concept-card-fvg .concept-content').innerHTML = `<p class="mb-4"><strong>Định nghĩa:</strong> Một sự mất cân bằng cung cầu rõ rệt, xảy ra khi giá di chuyển quá nhanh và mạnh, để lại một "vùng rỗng" trên biểu đồ giữa 3 cây nến.</p><p><strong>Ý nghĩa:</strong> Hoạt động như một "nam châm" hút giá. Thị trường có xu hướng quay lại để "lấp đầy" các vùng này.</p>`;
+            document.querySelector('#concept-card-structure .concept-content').innerHTML = `<p class="mb-2"><strong>Break of Structure (BOS):</strong> Xảy ra khi giá phá vỡ một đỉnh/đáy quan trọng, <strong>xác nhận sự tiếp diễn của xu hướng</strong>.</p><p class="mb-4"><strong>Change of Character (CHoCH):</strong> Là tín hiệu <strong>cảnh báo sớm về khả năng đảo chiều</strong>.</p>`;
+
+            const ctxEvaluation = document.getElementById('evaluationChart');
+            if (ctxEvaluation) {
+                new Chart(ctxEvaluation, {
+                    type: 'radar',
+                    data: { labels: ['Tiềm năng R:R', 'Độ khách quan', 'Tốc độ học', 'Độ sâu phân tích', 'Sự rõ ràng'], datasets: [{ label: 'Ưu điểm', data: [9, 4, 3, 9, 5], fill: true, backgroundColor: 'rgba(16, 185, 129, 0.2)', borderColor: 'rgb(16, 185, 129)', pointBackgroundColor: 'rgb(16, 185, 129)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgb(16, 185, 129)' }, { label: 'Nhược điểm', data: [5, 8, 9, 3, 7], fill: true, backgroundColor: 'rgba(239, 68, 68, 0.2)', borderColor: 'rgb(239, 68, 68)', pointBackgroundColor: 'rgb(239, 68, 68)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgb(239, 68, 68)' }] },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 10, pointLabels: { font: { size: 12 } }, grid: { color: '#e2e8f0' }, angleLines: { color: '#e2e8f0' } } }, plugins: { legend: { position: 'top' } } }
+                });
+            }
+            
+            const quizQuestions = document.getElementById('quiz-questions');
+            const quizResult = document.getElementById('quiz-result');
+            const resultTitle = document.getElementById('result-title');
+            const resultText = document.getElementById('result-text');
+            quizQuestions.addEventListener('change', () => {
+                const score = document.querySelectorAll('.quiz-checkbox:checked').length;
+                quizResult.classList.remove('opacity-0', 'bg-green-100', 'bg-yellow-100', 'bg-slate-100');
+                quizResult.classList.add('opacity-100');
+                if (score >= 3) {
+                    quizResult.classList.add('bg-green-100');
+                    resultTitle.textContent = "Tiềm năng lớn!";
+                    resultTitle.className = "text-xl font-bold text-green-700";
+                    resultText.textContent = "Tư duy và sự sẵn sàng của bạn rất phù hợp với SMC. Đây có thể là một con đường đầy hứa hẹn cho bạn.";
+                } else if (score >= 1) {
+                    quizResult.classList.add('bg-yellow-100');
+                    resultTitle.textContent = "Có thể khám phá";
+                    resultTitle.className = "text-xl font-bold text-yellow-700";
+                    resultText.textContent = "Bạn có một vài tố chất phù hợp. SMC có thể là một hướng đi thú vị, nhưng hãy nắm vững kiến thức cơ bản trước.";
+                } else {
+                    quizResult.classList.add('bg-slate-100');
+                    resultTitle.textContent = "Cần cân nhắc";
+                    resultTitle.className = "text-xl font-bold text-slate-700";
+                    resultText.textContent = "SMC có thể hơi quá sức ở thời điểm hiện tại. Hãy tập trung xây dựng nền tảng vững chắc trước.";
+                }
+            });
+
+            // Gemini API Analyzer Logic
+            const analyzeButton = document.getElementById('analyze-button');
+            const scenarioInput = document.getElementById('scenario-input');
+            const analyzerLoader = document.getElementById('analyzer-loader');
+            const analyzerOutput = document.getElementById('analyzer-output');
+            const analyzerError = document.getElementById('analyzer-error');
+
+            analyzeButton.addEventListener('click', async () => {
+                const userInput = scenarioInput.value.trim();
+                if (!userInput) {
+                    analyzerError.textContent = 'Vui lòng mô tả một kịch bản để phân tích.';
+                    analyzerError.classList.remove('hidden');
+                    return;
+                }
+                
+                analyzerLoader.style.display = 'flex';
+                analyzerOutput.innerHTML = '';
+                analyzerError.classList.add('hidden');
+                analyzeButton.disabled = true;
+
+                try {
+                    // ĐỊA CHỈ MỚI: Gọi đến "trạm trung chuyển" (Netlify Function) của chúng ta
+                    const apiUrl = `/.netlify/functions/analyze`; 
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        // Chỉ cần gửi nội dung người dùng nhập
+                        body: JSON.stringify({ prompt: userInput }) 
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || `API Error: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    let text = result.text;
+                        
+                    // Basic Markdown to HTML conversion
+                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    text = text.replace(/(\d+)\. (.*)/g, '<p class="ml-4">$1. $2</p>');
+                    text = text.replace(/^- (.*)/gm, '<li class="ml-4">$1</li>');
+                    text = text.replace(/\n/g, '<br>');
+
+                    analyzerOutput.innerHTML = text;
+
+                } catch (error) {
+                    console.error("Error calling Netlify Function:", error);
+                    analyzerError.textContent = `Đã xảy ra lỗi khi kết nối với trợ lý AI. Vui lòng thử lại sau. Lỗi: ${error.message}`;
+                    analyzerError.classList.remove('hidden');
+                } finally {
+                    analyzerLoader.style.display = 'none';
+                    analyzeButton.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
