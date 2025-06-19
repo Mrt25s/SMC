@@ -345,7 +345,7 @@
                 analyzeButton.disabled = true;
 
                 try {
-                    // ĐỊA CHỈ MỚI: Gọi đến "trạm trung chuyển" (Netlify Function) của chúng ta
+                    // Địa chỉ mới: Gọi đến "trạm trung chuyển" (Netlify Function) của chúng ta
                     const apiUrl = `/.netlify/functions/analyze`; 
                     
                     const response = await fetch(apiUrl, {
